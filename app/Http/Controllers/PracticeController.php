@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Config;
 use App;
 use Debugbar;
+
 use IanLChapman\PigLatinTranslator\Parser;
 
 class PracticeController extends Controller
@@ -78,7 +79,7 @@ class PracticeController extends Controller
                 }
             }
 
-            return View('practice')->with(['methods' => $methods]);
+            return view('practice')->with(['methods' => $methods]);
         } # Otherwise, load the requested method
         else {
             $method = 'practice' . $n;
