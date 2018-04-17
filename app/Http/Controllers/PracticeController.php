@@ -62,7 +62,7 @@ class PracticeController extends Controller
     public function practice8()
     {
         $book = new Book();
-        $books = $book->where('title', 'LIKE', '%Harry Potter!%')->get();
+        $books = $book->where('title', 'LIKE', '%Harry Potter%')->get();
 
         if ($books->isEmpty()) {
             dump('No matches found');
