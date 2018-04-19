@@ -13,6 +13,57 @@ use App\Book;
 
 class PracticeController extends Controller
 {
+    public function practice15()
+    {
+        # First get a book to delete
+        $book = Book::where('author','=', 'J.K. Rowling')->delete();
+
+        if (!$book) {
+            dump('Did not delete- Author not found.');
+        } else {
+            $book->delete();
+            dump('Deletion complete; check the database to see if it worked...');
+        }
+    }
+
+    public function practice14()
+    {
+        $books = Book::orderBy('published_year', 'desc')->get();
+
+        if ($books->isEmpty()) {
+            dump('No matches found');
+        } else {
+            foreach ($books as $book) {
+                dump($book->published_year);
+            }
+        }
+    }
+
+    public function practice13()
+    {
+        $books = Book::where('published_year', '>', '1950')->get();
+
+        if ($books->isEmpty()) {
+            dump('No matches found');
+        } else {
+            foreach ($books as $book) {
+                dump($book->title);
+            }
+        }
+    }
+
+    public function practice12()
+    {
+        $books = Book::orderBy('created_at', 'desc')->limit(2)->get();
+
+        if ($books->isEmpty()) {
+            dump('No matches found');
+        } else {
+            foreach ($books as $book) {
+                dump($book->title);
+            }
+        }
+    }
     public function practice11()
     {
         # First get a book to delete
@@ -48,7 +99,7 @@ class PracticeController extends Controller
     }
     public function practice9()
     {
-        $books = Book::where('title', 'LIKE', '%Harry Potter%')->get();
+        $books = Book::where('title', 'LIKE', '%Harry Potter%')->limit(1)->get();
 
         if ($books->isEmpty()) {
             dump('No matches found');
@@ -62,7 +113,7 @@ class PracticeController extends Controller
     public function practice8()
     {
         $book = new Book();
-        $books = $book->where('title', 'LIKE', '%Harry Potter%')->get();
+        $books = $book->where('title', 'LIKE', '%Harry Potter%')->first();
 
         if ($books->isEmpty()) {
             dump('No matches found');
@@ -73,12 +124,27 @@ class PracticeController extends Controller
         }
     }
 
+    public function practice6()
+    {
+        $book = new Book();
+        # Set the properties
+        # Note how each property corresponds to a field in the table
+        $book->title = 'The Great Gatsby';
+        $book->author = 'F. Scott Fitzgerald';
+        $book->published_year = 1925;
+        $book->cover_url = 'http://img2.imagesbn.com/p/9780743273565_p0_v4_s114x166.JPG';
+        $book->purchase_url = 'http://www.barnesandnoble.com/w/the-great-gatsby-francis-scott-fitzgerald/1116668135?ean=9780743273565';
+        $book->save();
+
+        dump($book);
+
+    }
     public function practice7()
     {
         $book = new Book();
         # Set the properties
         # Note how each property corresponds to a field in the table
-        $book->title = 'Harry Potter and the Sorcerer\'s Stone';
+        $book->title = 'Adrian and the Sorcerer\'s Stone';
         $book->author = 'J.K. Rowling';
         $book->published_year = 1997;
         $book->cover_url = 'http://prodimage.images-bn.com/pimages/9780590353427_p0_v1_s484x700.jpg';
